@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>OpenLiveCaption Mobile - Live Captions on Your Phone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .caption-display {
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.3em;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .caption-text {
+            color: white;
+        }
+        
+        .placeholder {
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+        }
+        
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+        
+        .control-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            color: #333;
+        }
+        
+        .start-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .start-button:active {
+            transform: scale(0.98);
+        }
+        
+        .start-button.listening {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .status {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .status.active {
+            background: rgba(76, 175, 80, 0.3);
+        }
+        
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎙️ OpenLiveCaption Mobile</h1>
+        <p>Live captions on your phone!</p>
+    </div>
+    
+    <div class="main-content">
+        <div class="caption-display">
+            <div class="caption-text placeholder" id="captionText">
+                Tap "Start Listening" and speak...
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="languageSelect">🌍 Language</label>
+                <select id="languageSelect">
+                    <option value="en-US">English (US)</option>
+                    <option value="es-ES">Spanish</option>
+                    <option value="fr-FR">French</option>
+                    <option value="de-DE">German</option>
+                    <option value="zh-CN">Chinese</option>
+                    <option value="ja-JP">Japanese</option>
+                    <option value="ko-KR">Korean</option>
+                    <option value="it-IT">Italian</option>
+                    <option value="pt-BR">Portuguese</option>
+                    <option value="ru-RU">Russian</option>
+                    <option value="ar-SA">Arabic</option>
+                    <option value="hi-IN">Hindi</option>
+                </select>
+            </div>
+            
+            <button class="start-button" id="startButton">
+                🎤 Start Listening
+            </button>
+            
+            <div class="status" id="status">
+                Ready to start
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <strong>📱 Mobile Web Version</strong>
+            This is a simplified mobile version using your phone's built-in speech recognition. For the full desktop experience with translation and more features, download the desktop app from GitHub!
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>
+            <a href="https://github.com/Ruthhilary/OpenLiveCaption">View on GitHub</a> • 
+            <a href="index.html">Desktop Version</a>
+        </p>
+        <p style="margin-top: 10px;">Made with ❤️ for accessibility</p>
+    </div>
+    
+    <script>
+        // Check if browser supports speech recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (!SpeechRecognition) {
+            document.getElementById('captionText').textContent = '❌ Sorry, your browser doesn\'t support speech recognition. Try Chrome or Safari.';
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('startButton').style.opacity = '0.5';
+        }
+        
+        let recognition = null;
+        let isListening = false;
+        
+        const startButton = document.getElementById('startButton');
+        const captionText = document.getElementById('captionText');
+        const status = document.getElementById('status');
+        const languageSelect = document.getElementById('languageSelect');
+        
+        function initRecognition() {
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = languageSelect.value;
+            
+            recognition.onstart = () => {
+                isListening = true;
+                startButton.textContent = '⏸️ Stop Listening';
+                startButton.classList.add('listening');
+                status.textContent = '🎤 Listening...';
+                status.classList.add('active');
+                captionText.classList.remove('placeholder');
+            };
+            
+            recognition.onresult = (event) => {
+                let finalTranscript = '';
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+                
+                if (finalTranscript) {
+                    captionText.textContent = finalTranscript;
+                } else if (interimTranscript) {
+                    captionText.textContent = interimTranscript;
+                    captionText.style.opacity = '0.7';
+                }
+                
+                if (finalTranscript) {
+                    captionText.style.opacity = '1';
+                }
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                if (event.error === 'no-speech') {
+                    status.textContent = '🔇 No speech detected. Try speaking louder.';
+                } else if (event.error === 'not-allowed') {
+                    status.textContent = '❌ Microphone access denied. Please allow microphone access.';
+                    stopListening();
+                } else {
+                    status.textContent = `❌ Error: ${event.error}`;
+                }
+            };
+            
+            recognition.onend = () => {
+                if (isListening) {
+                    // Restart if we're still supposed to be listening
+                    recognition.start();
+                }
+            };
+        }
+        
+        function startListening() {
+            if (!recognition) {
+                initRecognition();
+            }
+            
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error('Error starting recognition:', e);
+            }
+        }
+        
+        function stopListening() {
+            isListening = false;
+            if (recognition) {
+                recognition.stop();
+            }
+            startButton.textContent = '🎤 Start Listening';
+            startButton.classList.remove('listening');
+            status.textContent = 'Stopped';
+            status.classList.remove('active');
+        }
+        
+        startButton.addEventListener('click', () => {
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        });
+        
+        languageSelect.addEventListener('change', () => {
+            if (isListening) {
+                stopListening();
+                setTimeout(() => {
+                    startListening();
+                }, 100);
+            }
+        });
+        
+        // Request microphone permission on load
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(() => {
+                    console.log('Microphone access granted');
+                })
+                .catch((err) => {
+                    console.error('Microphone access denied:', err);
+                    status.textContent = '❌ Please allow microphone access';
+                });
+        }
+    </script>
+</body>
+</html>

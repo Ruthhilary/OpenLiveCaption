@@ -384,6 +384,26 @@
     </div>
     
     <script>
+        // Redirect mobile users to mobile version
+        function isMobile() {
+            return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
+        }
+        
+        if (isMobile()) {
+            // Show option to use mobile version
+            const mobileNote = document.querySelector('.mobile-note');
+            if (mobileNote) {
+                mobileNote.innerHTML = `
+                    <h3>📱 Mobile User Detected!</h3>
+                    <p style="margin-bottom: 15px;">You have two options:</p>
+                    <a href="mobile.html" style="display: block; background: #667eea; color: white; padding: 15px; border-radius: 10px; text-decoration: none; margin-bottom: 10px; font-weight: 600;">
+                        🎤 Use Mobile Web Version (Works on Phone!)
+                    </a>
+                    <p style="font-size: 0.9em;">Or download the desktop version for your computer with full features (translation, export, etc.)</p>
+                `;
+            }
+        }
+        
         // Auto-detect platform and highlight appropriate download button
         function detectPlatform() {
             const platform = navigator.platform.toLowerCase();
