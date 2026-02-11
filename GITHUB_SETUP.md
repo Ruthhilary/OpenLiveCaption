@@ -52,7 +52,7 @@ If it says "not a git repository":
 
 **Done!** Your code is now on GitHub! 🎉
 
-Your link: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
+Your link: `https://github.com/Ruthhilary/OpenLiveCaption`
 
 ---
 
@@ -94,7 +94,7 @@ git commit -m "OpenLiveCaption v2.0.0 - Complete implementation with 47 language
 GitHub will show you commands. Use these:
 
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+git remote add origin https://github.com/Ruthhilary/OpenLiveCaption.git
 git branch -M main
 git push -u origin main
 ```
@@ -124,7 +124,7 @@ Releases make it easy for people to download specific versions.
 
 6. Click "Publish release"
 
-**Your release link**: `https://github.com/YOUR_USERNAME/OpenLiveCaption/releases/tag/v2.0.0`
+**Your release link**: `https://github.com/Ruthhilary/OpenLiveCaption/releases/tag/v2.0.0`
 
 ---
 
@@ -163,7 +163,7 @@ Host your download page for free:
 4. Folder: `/web`
 5. Save
 
-Your page: `https://YOUR_USERNAME.github.io/OpenLiveCaption/download.html`
+Your page: `https://Ruthhilary.github.io/OpenLiveCaption/download.html`
 
 ### Add Social Preview
 
@@ -180,9 +180,9 @@ Now that it's on GitHub, share it!
 
 ### Your Links
 
-- **Repository**: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
-- **Releases**: `https://github.com/YOUR_USERNAME/OpenLiveCaption/releases`
-- **Download Page**: `https://YOUR_USERNAME.github.io/OpenLiveCaption/download.html` (if you enabled Pages)
+- **Repository**: `https://github.com/Ruthhilary/OpenLiveCaption`
+- **Releases**: `https://github.com/Ruthhilary/OpenLiveCaption/releases`
+- **Download Page**: `https://Ruthhilary.github.io/OpenLiveCaption/download.html` (if you enabled Pages)
 
 ### Where to Share
 
@@ -215,7 +215,7 @@ Free, open-source live captions that work with ANY application:
 ✅ Works with Zoom, Teams, YouTube, etc.
 ✅ 100% free and private (all processing local)
 
-Download: https://github.com/YOUR_USERNAME/OpenLiveCaption
+Download: https://github.com/Ruthhilary/OpenLiveCaption
 
 #accessibility #opensource #captions
 ```
@@ -268,7 +268,7 @@ Check these in the "Insights" tab!
 
 ```bash
 # Use HTTPS instead of SSH
-git remote set-url origin https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+git remote set-url origin https://github.com/Ruthhilary/OpenLiveCaption.git
 ```
 
 ### "Repository not found"
@@ -318,7 +318,7 @@ Your project is now:
 - ✅ Professional looking
 - ✅ Ready to share with the world
 
-**Your repository**: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
+**Your repository**: `https://github.com/Ruthhilary/OpenLiveCaption`
 
 Share it and help make the world more accessible! 🌍
 

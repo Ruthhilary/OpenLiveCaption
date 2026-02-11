@@ -68,7 +68,7 @@ If you're new to open source:
 
 ```bash
 # Fork the repository on GitHub, then clone your fork
-git clone https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+git clone https://github.com/Ruthhilary/OpenLiveCaption.git
 cd OpenLiveCaption
 
 # Add upstream remote

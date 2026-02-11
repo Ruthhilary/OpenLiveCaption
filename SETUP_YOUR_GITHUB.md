@@ -32,8 +32,8 @@
 #    - Don't initialize with README
 #    - Click "Create repository"
 
-# 2. Then run these commands (replace YOUR_USERNAME):
-git remote add origin https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+# 2. Then run these commands (replace Ruthhilary):
+git remote add origin https://github.com/Ruthhilary/OpenLiveCaption.git
 git branch -M main
 git push -u origin main
 ```
@@ -46,9 +46,9 @@ After you push to GitHub, you need to update the download links in your website 
 
 ### Find Your GitHub Username
 
-Your GitHub URL will be: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
+Your GitHub URL will be: `https://github.com/Ruthhilary/OpenLiveCaption`
 
-Replace `YOUR_USERNAME` with your actual GitHub username.
+Replace `Ruthhilary` with your actual GitHub username.
 
 ### Update These Files
 
@@ -59,7 +59,7 @@ I'll do this for you! Just tell me your GitHub username and I'll update:
 
 **Or you can do it manually**:
 - Open each file
-- Find: `YOUR_USERNAME`
+- Find: `Ruthhilary`
 - Replace with: your actual GitHub username
 
 ---
@@ -91,7 +91,7 @@ Host your website for free:
 6. **Click "Save"**
 
 Your website will be live at:
-`https://YOUR_USERNAME.github.io/OpenLiveCaption/`
+`https://Ruthhilary.github.io/OpenLiveCaption/`
 
 ---
 
@@ -109,9 +109,9 @@ Your website will be live at:
 
 After these steps:
 
-1. **Repository**: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
-2. **Download Page**: `https://YOUR_USERNAME.github.io/OpenLiveCaption/index.html`
-3. **Releases**: `https://github.com/YOUR_USERNAME/OpenLiveCaption/releases`
+1. **Repository**: `https://github.com/Ruthhilary/OpenLiveCaption`
+2. **Download Page**: `https://Ruthhilary.github.io/OpenLiveCaption/index.html`
+3. **Releases**: `https://github.com/Ruthhilary/OpenLiveCaption/releases`
 
 ---
 
@@ -144,7 +144,7 @@ Free, open-source live captions that work with ANY application:
 ✅ Works with Zoom, Teams, YouTube, etc.
 ✅ 100% free and private
 
-Download: https://github.com/YOUR_USERNAME/OpenLiveCaption
+Download: https://github.com/Ruthhilary/OpenLiveCaption
 
 #accessibility #opensource #captions #a11y
 ```

@@ -19,7 +19,7 @@
 
 **Option B: Clone from GitHub**
 ```bash
-git clone https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+git clone https://github.com/Ruthhilary/OpenLiveCaption.git
 cd OpenLiveCaption
 ```
 

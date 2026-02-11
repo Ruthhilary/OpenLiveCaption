@@ -79,8 +79,8 @@ git init
 git add .
 git commit -m "OpenLiveCaption v2.0.0 - Complete implementation with 47 languages"
 
-# Connect to GitHub (replace YOUR_USERNAME)
-git remote add origin https://github.com/YOUR_USERNAME/OpenLiveCaption.git
+# Connect to GitHub (replace Ruthhilary)
+git remote add origin https://github.com/Ruthhilary/OpenLiveCaption.git
 git branch -M main
 git push -u origin main
 ```
@@ -96,7 +96,7 @@ git push -u origin main
 
 ### Step 4: Share!
 
-Your link: `https://github.com/YOUR_USERNAME/OpenLiveCaption`
+Your link: `https://github.com/Ruthhilary/OpenLiveCaption`
 
 People can:
 - Click "Code" → "Download ZIP"
@@ -211,7 +211,7 @@ start web/download.html
 3. Source: Deploy from branch `main`
 4. Folder: `/web`
 5. Save
-6. Your page: `https://YOUR_USERNAME.github.io/OpenLiveCaption/download.html`
+6. Your page: `https://Ruthhilary.github.io/OpenLiveCaption/download.html`
 
 **Option B: Netlify (Free)**
 

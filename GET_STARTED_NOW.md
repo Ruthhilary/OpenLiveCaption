@@ -114,7 +114,7 @@ I've created EVERYTHING you need:
 1. Read: `GITHUB_SETUP.md`
 2. Install GitHub Desktop
 3. Publish repository
-4. Share link: `github.com/YOUR_USERNAME/OpenLiveCaption`
+4. Share link: `github.com/Ruthhilary/OpenLiveCaption`
 
 **Time**: 10 minutes
 
