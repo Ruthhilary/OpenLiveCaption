@@ -255,13 +255,14 @@
         
         <div class="info-box">
             <strong>📱 Real-Time Live Captions</strong>
-            <p style="margin-top: 10px;">✅ Captions appear AS YOU SPEAK (word-by-word)</p>
-            <p>✅ No waiting - instant real-time display</p>
+            <p style="margin-top: 10px;">✅ Captions update AS YOU SPEAK</p>
+            <p>✅ Optimized for fastest possible display</p>
             <p>✅ Translation after you finish speaking</p>
             <p>✅ Export all captions to file</p>
             <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
-                💡 Watch the text appear as you say each word!<br>
-                Italic text = still speaking | Normal text = finished
+                ⚠️ Speed depends on your phone/browser<br>
+                💡 Chrome on Android = fastest | Safari on iPhone = good<br>
+                🖥️ For instant captions, use desktop version (no delay!)
             </p>
         </div>
     </div>
@@ -373,8 +374,15 @@
         function initRecognition() {
             recognition = new SpeechRecognition();
             recognition.continuous = true;
-            recognition.interimResults = true;
+            recognition.interimResults = true; // CRITICAL: Show results while speaking
+            recognition.maxAlternatives = 1;
             recognition.lang = languageSelect.value;
+            
+            // Optimize for speed
+            if ('webkitSpeechRecognition' in window) {
+                recognition.continuous = true;
+                recognition.interimResults = true;
+            }
             
             recognition.onstart = () => {
                 isListening = true;
@@ -386,50 +394,61 @@
             };
             
             recognition.onresult = async (event) => {
-                let finalTranscript = '';
-                let interimTranscript = '';
+                // Process ALL results, prioritizing the most recent
+                let currentTranscript = '';
+                let isFinal = false;
                 
-                // Get all results including interim (real-time)
+                // Get the latest result (most recent speech)
                 for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript + ' ';
+                    const result = event.results[i];
+                    const transcript = result[0].transcript;
+                    
+                    if (result.isFinal) {
+                        isFinal = true;
+                        currentTranscript = transcript;
                     } else {
-                        interimTranscript += transcript;
+                        // Show interim IMMEDIATELY - this is what you're currently saying
+                        currentTranscript = transcript;
                     }
                 }
                 
-                // Show interim results IMMEDIATELY as you speak
-                if (interimTranscript) {
-                    captionText.textContent = interimTranscript;
-                    captionText.style.opacity = '0.8';
-                    captionText.style.fontStyle = 'italic';
-                }
-                
-                // When you finish speaking, show final result
-                if (finalTranscript) {
-                    // Translate if enabled
-                    let displayText = finalTranscript;
-                    if (translationEnabled) {
-                        status.textContent = '🔄 Translating...';
-                        displayText = await translateText(finalTranscript, targetLanguageSelect.value);
-                        status.textContent = '🎤 Live - Always listening...';
-                    }
-                    
-                    captionText.textContent = displayText;
-                    captionText.style.opacity = '1';
-                    captionText.style.fontStyle = 'normal';
-                    
-                    // Save to history
-                    allCaptions.push({
-                        time: new Date().toLocaleTimeString(),
-                        text: displayText,
-                        original: finalTranscript
-                    });
-                    
-                    // Show export button after first caption
-                    if (allCaptions.length > 0) {
-                        exportButton.style.display = 'block';
+                // ALWAYS update display immediately with whatever we have
+                if (currentTranscript) {
+                    if (isFinal) {
+                        // Final result - translate if needed
+                        let displayText = currentTranscript;
+                        
+                        if (translationEnabled) {
+                            // Show original first, then translate
+                            captionText.textContent = currentTranscript;
+                            captionText.style.opacity = '1';
+                            captionText.style.fontStyle = 'normal';
+                            
+                            status.textContent = '🔄 Translating...';
+                            displayText = await translateText(currentTranscript, targetLanguageSelect.value);
+                            status.textContent = '🎤 Live - Always listening...';
+                        }
+                        
+                        captionText.textContent = displayText;
+                        captionText.style.opacity = '1';
+                        captionText.style.fontStyle = 'normal';
+                        
+                        // Save to history
+                        allCaptions.push({
+                            time: new Date().toLocaleTimeString(),
+                            text: displayText,
+                            original: currentTranscript
+                        });
+                        
+                        if (allCaptions.length > 0) {
+                            exportButton.style.display = 'block';
+                        }
+                    } else {
+                        // Interim result - show INSTANTLY as you speak
+                        captionText.textContent = currentTranscript;
+                        captionText.style.opacity = '0.9';
+                        captionText.style.fontStyle = 'italic';
+                        captionText.style.color = '#ffffff';
                     }
                 }
             };
