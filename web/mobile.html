@@ -254,14 +254,14 @@
         </div>
         
         <div class="info-box">
-            <strong>📱 Auto-Live Mobile Version</strong>
-            <p style="margin-top: 10px;">✅ Starts automatically - always listening</p>
-            <p>✅ Live captions in real-time</p>
-            <p>✅ Translation (20 languages)</p>
-            <p>✅ Export captions to file</p>
+            <strong>📱 Real-Time Live Captions</strong>
+            <p style="margin-top: 10px;">✅ Captions appear AS YOU SPEAK (word-by-word)</p>
+            <p>✅ No waiting - instant real-time display</p>
+            <p>✅ Translation after you finish speaking</p>
+            <p>✅ Export all captions to file</p>
             <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
-                💡 Just speak - captions appear instantly!<br>
-                Click "Pause" if you need to stop temporarily.
+                💡 Watch the text appear as you say each word!<br>
+                Italic text = still speaking | Normal text = finished
             </p>
         </div>
     </div>
@@ -389,6 +389,7 @@
                 let finalTranscript = '';
                 let interimTranscript = '';
                 
+                // Get all results including interim (real-time)
                 for (let i = event.resultIndex; i < event.results.length; i++) {
                     const transcript = event.results[i][0].transcript;
                     if (event.results[i].isFinal) {
@@ -398,17 +399,26 @@
                     }
                 }
                 
+                // Show interim results IMMEDIATELY as you speak
+                if (interimTranscript) {
+                    captionText.textContent = interimTranscript;
+                    captionText.style.opacity = '0.8';
+                    captionText.style.fontStyle = 'italic';
+                }
+                
+                // When you finish speaking, show final result
                 if (finalTranscript) {
                     // Translate if enabled
                     let displayText = finalTranscript;
                     if (translationEnabled) {
                         status.textContent = '🔄 Translating...';
                         displayText = await translateText(finalTranscript, targetLanguageSelect.value);
-                        status.textContent = '🎤 Listening...';
+                        status.textContent = '🎤 Live - Always listening...';
                     }
                     
                     captionText.textContent = displayText;
                     captionText.style.opacity = '1';
+                    captionText.style.fontStyle = 'normal';
                     
                     // Save to history
                     allCaptions.push({
@@ -421,9 +431,6 @@
                     if (allCaptions.length > 0) {
                         exportButton.style.display = 'block';
                     }
-                } else if (interimTranscript) {
-                    captionText.textContent = interimTranscript;
-                    captionText.style.opacity = '0.7';
                 }
             };
             
