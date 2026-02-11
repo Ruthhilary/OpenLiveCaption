@@ -175,7 +175,7 @@
     <div class="main-content">
         <div class="caption-display">
             <div class="caption-text placeholder" id="captionText">
-                Tap "Start Listening" and speak...
+                🎤 Listening... Speak now!
             </div>
         </div>
         
@@ -241,7 +241,7 @@
             </div>
             
             <button class="start-button" id="startButton">
-                🎤 Start Listening
+                ⏸️ Pause Listening
             </button>
             
             <button class="start-button" id="exportButton" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); display: none; margin-top: 10px;">
@@ -249,19 +249,19 @@
             </button>
             
             <div class="status" id="status">
-                Ready to start
+                🎤 Auto-starting... Allow microphone access
             </div>
         </div>
         
         <div class="info-box">
-            <strong>📱 Enhanced Mobile Version</strong>
-            <p style="margin-top: 10px;">✅ Live captions from microphone</p>
-            <p>✅ Translation (requires internet)</p>
+            <strong>📱 Auto-Live Mobile Version</strong>
+            <p style="margin-top: 10px;">✅ Starts automatically - always listening</p>
+            <p>✅ Live captions in real-time</p>
+            <p>✅ Translation (20 languages)</p>
             <p>✅ Export captions to file</p>
-            <p>✅ 20 languages supported</p>
             <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
-                ⚠️ Cannot capture other apps' audio (phone limitation)<br>
-                For full features including Zoom/YouTube capture, use the desktop version.
+                💡 Just speak - captions appear instantly!<br>
+                Click "Pause" if you need to stop temporarily.
             </p>
         </div>
     </div>
@@ -378,9 +378,9 @@
             
             recognition.onstart = () => {
                 isListening = true;
-                startButton.textContent = '⏸️ Stop Listening';
+                startButton.textContent = '⏸️ Pause Listening';
                 startButton.classList.add('listening');
-                status.textContent = '🎤 Listening...';
+                status.textContent = '🎤 Live - Always listening...';
                 status.classList.add('active');
                 captionText.classList.remove('placeholder');
             };
@@ -464,9 +464,9 @@
             if (recognition) {
                 recognition.stop();
             }
-            startButton.textContent = '🎤 Start Listening';
+            startButton.textContent = '🎤 Resume Listening';
             startButton.classList.remove('listening');
-            status.textContent = 'Stopped';
+            status.textContent = 'Paused - Click to resume';
             status.classList.remove('active');
         }
         
@@ -487,6 +487,27 @@
                     startListening();
                 }, 100);
             }
+        });
+        
+        // Auto-start on page load
+        window.addEventListener('load', () => {
+            // Wait a moment for everything to load
+            setTimeout(() => {
+                // Request microphone permission and start automatically
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ audio: true })
+                        .then(() => {
+                            console.log('Microphone access granted');
+                            // Auto-start listening
+                            startListening();
+                            status.textContent = '🎤 Auto-started! Listening...';
+                        })
+                        .catch((err) => {
+                            console.error('Microphone access denied:', err);
+                            status.textContent = '❌ Please allow microphone access and refresh';
+                        });
+                }
+            }, 1000);
         });
         
         // Request microphone permission on load
