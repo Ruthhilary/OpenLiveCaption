@@ -89,32 +89,80 @@
 </head>
 <body>
     <div class="container">
-        <h1>📱 Open on Your Phone</h1>
+        <h1>🎙️ OpenLiveCaption</h1>
+        <p style="font-size: 1.2em; margin-bottom: 10px;">Get it on your devices!</p>
         
-        <p style="font-size: 1.3em; margin-bottom: 30px;">
-            Scan this QR code with your phone camera:
-        </p>
-        
-        <div class="qr-code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html" 
-                 alt="QR Code" 
-                 style="width: 300px; height: 300px;">
+        <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <h2 style="margin-bottom: 15px;">📱 Mobile Version (Enhanced!)</h2>
+            <p style="margin-bottom: 20px;">✅ Translation • ✅ Export • ✅ 20 Languages</p>
+            
+            <p style="font-size: 1.1em; margin-bottom: 15px;">
+                Scan this QR code with your phone camera:
+            </p>
+            
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html" 
+                     alt="Mobile QR Code" 
+                     style="width: 300px; height: 300px;">
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
+                Or type: ruthhilary.github.io/OpenLiveCaption/web/mobile.html
+            </p>
         </div>
         
-        <p style="font-size: 1.1em; margin: 20px 0;">
-            Or copy this link:
-        </p>
-        
-        <div class="link-box" id="linkBox" onclick="copyLink()">
-            https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html
+        <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <h2 style="margin-bottom: 15px;">💻 Desktop Version (Full Features!)</h2>
+            <p style="margin-bottom: 20px;">✅ 47 Languages • ✅ Capture Zoom/YouTube • ✅ Offline</p>
+            
+            <p style="font-size: 1.1em; margin-bottom: 15px;">
+                Scan to download for your laptop:
+            </p>
+            
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://github.com/Ruthhilary/OpenLiveCaption" 
+                     alt="Desktop QR Code" 
+                     style="width: 300px; height: 300px;">
+            </div>
+            
+            <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
+                Or type: github.com/Ruthhilary/OpenLiveCaption
+            </p>
+            
+            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left;">
+                <strong>📥 How to Download Desktop Version:</strong>
+                <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
+                    <li>Click the green "Code" button</li>
+                    <li>Click "Download ZIP"</li>
+                    <li>Extract the ZIP file</li>
+                    <li>Double-click <code style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px;">START_OPENLIVECAPTION.bat</code></li>
+                    <li>Enjoy full features!</li>
+                </ol>
+            </div>
         </div>
         
-        <button class="copy-btn" onclick="copyLink()">
-            📋 Copy Link
+        <div class="link-box" id="linkBox" onclick="copyMobileLink()">
+            📱 Mobile: https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html
+        </div>
+        
+        <div class="link-box" id="desktopLinkBox" onclick="copyDesktopLink()" style="margin-top: 10px;">
+            💻 Desktop: https://github.com/Ruthhilary/OpenLiveCaption
+        </div>
+        
+        <button class="copy-btn" onclick="copyMobileLink()">
+            📋 Copy Mobile Link
         </button>
         
-        <button class="copy-btn" onclick="openLink()">
-            🚀 Open Now
+        <button class="copy-btn" onclick="copyDesktopLink()">
+            📋 Copy Desktop Link
+        </button>
+        
+        <button class="copy-btn" onclick="openMobile()">
+            📱 Open Mobile Now
+        </button>
+        
+        <button class="copy-btn" onclick="openDesktop()">
+            💻 Open Desktop Now
         </button>
         
         <div class="success" id="success">
@@ -122,12 +170,51 @@
         </div>
         
         <div class="instructions">
-            <strong>📝 Instructions:</strong>
-            <ol>
-                <li><strong>Option 1 (Easiest):</strong> Point your phone camera at the QR code above. A notification will appear - tap it!</li>
-                <li><strong>Option 2:</strong> Click "Copy Link" above, then text or email it to yourself. Open on your phone and click the link.</li>
-                <li><strong>Option 3:</strong> On your phone, open your browser and type: <code>ruthhilary.github.io/OpenLiveCaption/web/mobile.html</code></li>
-            </ol>
+            <strong>📝 Quick Guide:</strong>
+            <div style="margin-top: 15px;">
+                <p style="margin: 10px 0;"><strong>For Phone:</strong></p>
+                <ol style="margin-left: 20px; line-height: 1.8;">
+                    <li>Scan the MOBILE QR code with your camera</li>
+                    <li>Tap the notification to open</li>
+                    <li>Allow microphone access</li>
+                    <li>Enable translation if needed</li>
+                    <li>Tap "Start Listening" and speak!</li>
+                </ol>
+                
+                <p style="margin: 20px 0 10px 0;"><strong>For Laptop/Computer:</strong></p>
+                <ol style="margin-left: 20px; line-height: 1.8;">
+                    <li>Scan the DESKTOP QR code or click "Open Desktop Now"</li>
+                    <li>Click green "Code" button on GitHub</li>
+                    <li>Click "Download ZIP"</li>
+                    <li>Extract ZIP file to a folder</li>
+                    <li>Double-click START_OPENLIVECAPTION.bat</li>
+                    <li>Select audio source and start!</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: rgba(76, 175, 80, 0.2); border-radius: 10px;">
+            <strong>✨ What You Get:</strong>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: left;">
+                <div>
+                    <strong>📱 Mobile:</strong>
+                    <ul style="margin: 5px 0 0 20px; font-size: 0.9em;">
+                        <li>Translation (20 languages)</li>
+                        <li>Export captions</li>
+                        <li>No installation</li>
+                        <li>Works in browser</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>💻 Desktop:</strong>
+                    <ul style="margin: 5px 0 0 20px; font-size: 0.9em;">
+                        <li>Translation (47 languages)</li>
+                        <li>Capture Zoom/YouTube</li>
+                        <li>Export SRT/VTT files</li>
+                        <li>Works offline</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         
         <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.2);">
@@ -144,18 +231,25 @@
     </div>
     
     <script>
-        function copyLink() {
+        function copyMobileLink() {
             const link = 'https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html';
-            
-            // Try to copy to clipboard
+            copyToClipboard(link, 'Mobile link copied!');
+        }
+        
+        function copyDesktopLink() {
+            const link = 'https://github.com/Ruthhilary/OpenLiveCaption';
+            copyToClipboard(link, 'Desktop link copied!');
+        }
+        
+        function copyToClipboard(text, message) {
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showSuccess();
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccess(message);
                 }).catch(() => {
-                    fallbackCopy(link);
+                    fallbackCopy(text);
                 });
             } else {
-                fallbackCopy(link);
+                fallbackCopy(text);
             }
         }
         
@@ -168,23 +262,28 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                showSuccess();
+                showSuccess('Link copied!');
             } catch (err) {
                 alert('Link: ' + text + '\n\nPlease copy this manually!');
             }
             document.body.removeChild(textArea);
         }
         
-        function showSuccess() {
+        function showSuccess(message) {
             const success = document.getElementById('success');
+            success.textContent = '✅ ' + message + ' Now paste it in your browser!';
             success.style.display = 'block';
             setTimeout(() => {
                 success.style.display = 'none';
             }, 3000);
         }
         
-        function openLink() {
+        function openMobile() {
             window.open('https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html', '_blank');
+        }
+        
+        function openDesktop() {
+            window.open('https://github.com/Ruthhilary/OpenLiveCaption', '_blank');
         }
     </script>
 </body>
