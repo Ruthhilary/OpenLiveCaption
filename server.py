@@ -1,8 +1,10 @@
-from flask import Flask, request, send_from_directory, jsonify
+from flask import Flask, request, send_from_directory, jsonify, send_file
 import os
 import tempfile
 import whisper
 from transformers import MarianMTModel, MarianTokenizer
+import zipfile
+import io
 
 app = Flask(__name__, static_folder="web")
 
@@ -49,6 +51,38 @@ def translate_text(text, target_lang=None):
 @app.route("/")
 def index():
     return send_from_directory("web", "index.html")
+
+
+@app.route("/download")
+def download():
+    """Serve the entire project as a ZIP file for download"""
+    import zipfile
+    import io
+    from flask import send_file
+    
+    # Create ZIP in memory
+    memory_file = io.BytesIO()
+    with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zf:
+        # Add all project files
+        for root, dirs, files in os.walk('.'):
+            # Skip certain directories
+            if any(skip in root for skip in ['.git', '__pycache__', 'venv', '.kiro', 'node_modules']):
+                continue
+            for file in files:
+                file_path = os.path.join(root, file)
+                arcname = file_path.replace('.\\', '').replace('./', '')
+                try:
+                    zf.write(file_path, arcname)
+                except Exception:
+                    pass
+    
+    memory_file.seek(0)
+    return send_file(
+        memory_file,
+        mimetype='application/zip',
+        as_attachment=True,
+        download_name='OpenLiveCaption.zip'
+    )
 
 
 @app.route("/transcribe", methods=["POST"])
