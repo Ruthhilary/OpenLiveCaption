@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open on Your Phone</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .qr-code {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: inline-block;
+        }
+        .link-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .link-box:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        .copy-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        .instructions {
+            margin-top: 30px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: left;
+        }
+        .instructions ol {
+            margin-left: 20px;
+        }
+        .instructions li {
+            margin: 10px 0;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Open on Your Phone</h1>
+        
+        <p style="font-size: 1.3em; margin-bottom: 30px;">
+            Scan this QR code with your phone camera:
+        </p>
+        
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html" 
+                 alt="QR Code" 
+                 style="width: 300px; height: 300px;">
+        </div>
+        
+        <p style="font-size: 1.1em; margin: 20px 0;">
+            Or copy this link:
+        </p>
+        
+        <div class="link-box" id="linkBox" onclick="copyLink()">
+            https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html
+        </div>
+        
+        <button class="copy-btn" onclick="copyLink()">
+            📋 Copy Link
+        </button>
+        
+        <button class="copy-btn" onclick="openLink()">
+            🚀 Open Now
+        </button>
+        
+        <div class="success" id="success">
+            ✅ Link copied! Now paste it in your phone's browser!
+        </div>
+        
+        <div class="instructions">
+            <strong>📝 Instructions:</strong>
+            <ol>
+                <li><strong>Option 1 (Easiest):</strong> Point your phone camera at the QR code above. A notification will appear - tap it!</li>
+                <li><strong>Option 2:</strong> Click "Copy Link" above, then text or email it to yourself. Open on your phone and click the link.</li>
+                <li><strong>Option 3:</strong> On your phone, open your browser and type: <code>ruthhilary.github.io/OpenLiveCaption/web/mobile.html</code></li>
+            </ol>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.2);">
+            <p style="font-size: 1.2em; margin-bottom: 15px;">
+                <strong>Your Links:</strong>
+            </p>
+            <p style="margin: 10px 0;">
+                🖥️ Desktop: <a href="https://github.com/Ruthhilary/OpenLiveCaption" style="color: white;">github.com/Ruthhilary/OpenLiveCaption</a>
+            </p>
+            <p style="margin: 10px 0;">
+                📱 Mobile: <a href="https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html" style="color: white;">ruthhilary.github.io/OpenLiveCaption/web/mobile.html</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function copyLink() {
+            const link = 'https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html';
+            
+            // Try to copy to clipboard
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showSuccess();
+                }).catch(() => {
+                    fallbackCopy(link);
+                });
+            } else {
+                fallbackCopy(link);
+            }
+        }
+        
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showSuccess();
+            } catch (err) {
+                alert('Link: ' + text + '\n\nPlease copy this manually!');
+            }
+            document.body.removeChild(textArea);
+        }
+        
+        function showSuccess() {
+            const success = document.getElementById('success');
+            success.style.display = 'block';
+            setTimeout(() => {
+                success.style.display = 'none';
+            }, 3000);
+        }
+        
+        function openLink() {
+            window.open('https://ruthhilary.github.io/OpenLiveCaption/web/mobile.html', '_blank');
+        }
+    </script>
+</body>
+</html>

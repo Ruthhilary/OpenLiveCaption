@@ -181,7 +181,7 @@
         
         <div class="controls">
             <div class="control-group">
-                <label for="languageSelect">🌍 Language</label>
+                <label for="languageSelect">🎤 Speech Language (What you speak)</label>
                 <select id="languageSelect">
                     <option value="en-US">English (US)</option>
                     <option value="es-ES">Spanish</option>
@@ -195,11 +195,57 @@
                     <option value="ru-RU">Russian</option>
                     <option value="ar-SA">Arabic</option>
                     <option value="hi-IN">Hindi</option>
+                    <option value="tr-TR">Turkish</option>
+                    <option value="pl-PL">Polish</option>
+                    <option value="nl-NL">Dutch</option>
+                    <option value="sv-SE">Swedish</option>
+                    <option value="da-DK">Danish</option>
+                    <option value="fi-FI">Finnish</option>
+                    <option value="no-NO">Norwegian</option>
+                    <option value="cs-CZ">Czech</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="translateToggle">🌐 Enable Translation</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="translateToggle" style="width: 20px; height: 20px;">
+                    <span id="translateLabel" style="color: #666;">Off</span>
+                </div>
+            </div>
+            
+            <div class="control-group" id="targetLangGroup" style="display: none;">
+                <label for="targetLanguageSelect">📝 Caption Language (What you see)</label>
+                <select id="targetLanguageSelect">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="zh">Chinese</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="it">Italian</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="ru">Russian</option>
+                    <option value="ar">Arabic</option>
+                    <option value="hi">Hindi</option>
+                    <option value="tr">Turkish</option>
+                    <option value="pl">Polish</option>
+                    <option value="nl">Dutch</option>
+                    <option value="sv">Swedish</option>
+                    <option value="da">Danish</option>
+                    <option value="fi">Finnish</option>
+                    <option value="no">Norwegian</option>
+                    <option value="cs">Czech</option>
                 </select>
             </div>
             
             <button class="start-button" id="startButton">
                 🎤 Start Listening
+            </button>
+            
+            <button class="start-button" id="exportButton" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); display: none; margin-top: 10px;">
+                💾 Export Captions
             </button>
             
             <div class="status" id="status">
@@ -208,8 +254,15 @@
         </div>
         
         <div class="info-box">
-            <strong>📱 Mobile Web Version</strong>
-            This is a simplified mobile version using your phone's built-in speech recognition. For the full desktop experience with translation and more features, download the desktop app from GitHub!
+            <strong>📱 Enhanced Mobile Version</strong>
+            <p style="margin-top: 10px;">✅ Live captions from microphone</p>
+            <p>✅ Translation (requires internet)</p>
+            <p>✅ Export captions to file</p>
+            <p>✅ 20 languages supported</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
+                ⚠️ Cannot capture other apps' audio (phone limitation)<br>
+                For full features including Zoom/YouTube capture, use the desktop version.
+            </p>
         </div>
     </div>
     
@@ -233,11 +286,89 @@
         
         let recognition = null;
         let isListening = false;
+        let allCaptions = [];
+        let translationEnabled = false;
         
         const startButton = document.getElementById('startButton');
+        const exportButton = document.getElementById('exportButton');
         const captionText = document.getElementById('captionText');
         const status = document.getElementById('status');
         const languageSelect = document.getElementById('languageSelect');
+        const translateToggle = document.getElementById('translateToggle');
+        const translateLabel = document.getElementById('translateLabel');
+        const targetLangGroup = document.getElementById('targetLangGroup');
+        const targetLanguageSelect = document.getElementById('targetLanguageSelect');
+        
+        // Toggle translation
+        translateToggle.addEventListener('change', () => {
+            translationEnabled = translateToggle.checked;
+            translateLabel.textContent = translationEnabled ? 'On' : 'Off';
+            targetLangGroup.style.display = translationEnabled ? 'block' : 'none';
+        });
+        
+        // Translation function using Google Translate API (free tier)
+        async function translateText(text, targetLang) {
+            if (!translationEnabled || !text) return text;
+            
+            try {
+                // Using MyMemory Translation API (free, no key required)
+                const sourceLang = languageSelect.value.split('-')[0];
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.responseStatus === 200 && data.responseData) {
+                    return data.responseData.translatedText;
+                }
+                return text;
+            } catch (error) {
+                console.error('Translation error:', error);
+                return text;
+            }
+        }
+        
+        // Export captions function
+        function exportCaptions() {
+            if (allCaptions.length === 0) {
+                alert('No captions to export! Start listening first.');
+                return;
+            }
+            
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `captions_${timestamp}.txt`;
+            
+            let content = '='.repeat(50) + '\n';
+            content += 'OpenLiveCaption - Exported Captions\n';
+            content += `Date: ${new Date().toLocaleString()}\n`;
+            content += `Language: ${languageSelect.options[languageSelect.selectedIndex].text}\n`;
+            if (translationEnabled) {
+                content += `Translated to: ${targetLanguageSelect.options[targetLanguageSelect.selectedIndex].text}\n`;
+            }
+            content += '='.repeat(50) + '\n\n';
+            
+            allCaptions.forEach((caption, index) => {
+                content += `[${index + 1}] ${caption.time}\n${caption.text}\n\n`;
+            });
+            
+            // Create download
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            status.textContent = `✅ Exported ${allCaptions.length} captions!`;
+            setTimeout(() => {
+                if (isListening) {
+                    status.textContent = '🎤 Listening...';
+                }
+            }, 2000);
+        }
         
         function initRecognition() {
             recognition = new SpeechRecognition();
@@ -254,7 +385,7 @@
                 captionText.classList.remove('placeholder');
             };
             
-            recognition.onresult = (event) => {
+            recognition.onresult = async (event) => {
                 let finalTranscript = '';
                 let interimTranscript = '';
                 
@@ -268,14 +399,31 @@
                 }
                 
                 if (finalTranscript) {
-                    captionText.textContent = finalTranscript;
+                    // Translate if enabled
+                    let displayText = finalTranscript;
+                    if (translationEnabled) {
+                        status.textContent = '🔄 Translating...';
+                        displayText = await translateText(finalTranscript, targetLanguageSelect.value);
+                        status.textContent = '🎤 Listening...';
+                    }
+                    
+                    captionText.textContent = displayText;
+                    captionText.style.opacity = '1';
+                    
+                    // Save to history
+                    allCaptions.push({
+                        time: new Date().toLocaleTimeString(),
+                        text: displayText,
+                        original: finalTranscript
+                    });
+                    
+                    // Show export button after first caption
+                    if (allCaptions.length > 0) {
+                        exportButton.style.display = 'block';
+                    }
                 } else if (interimTranscript) {
                     captionText.textContent = interimTranscript;
                     captionText.style.opacity = '0.7';
-                }
-                
-                if (finalTranscript) {
-                    captionText.style.opacity = '1';
                 }
             };
             
@@ -329,6 +477,8 @@
                 startListening();
             }
         });
+        
+        exportButton.addEventListener('click', exportCaptions);
         
         languageSelect.addEventListener('change', () => {
             if (isListening) {
