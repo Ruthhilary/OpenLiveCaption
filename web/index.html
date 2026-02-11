@@ -270,30 +270,43 @@
                 <p style="margin: 20px 0; font-size: 1.1em;">Choose your platform:</p>
                 
                 <div class="download-buttons">
-                    <a href="https://github.com/Ruthhilary/OpenLiveCaption/releases/latest/download/OpenLiveCaption-Windows.exe" class="download-button" id="windows-download">
+                    <a href="https://github.com/Ruthhilary/OpenLiveCaption" class="download-button" id="windows-download">
                         <span class="platform-icon">🪟</span>
-                        Windows
+                        Download for Windows
                     </a>
                     
-                    <a href="https://github.com/Ruthhilary/OpenLiveCaption/releases/latest/download/OpenLiveCaption-macOS.dmg" class="download-button" id="macos-download">
+                    <a href="https://github.com/Ruthhilary/OpenLiveCaption" class="download-button" id="macos-download">
                         <span class="platform-icon">🍎</span>
-                        macOS
+                        Download for macOS
                     </a>
                     
-                    <a href="https://github.com/Ruthhilary/OpenLiveCaption/releases/latest/download/OpenLiveCaption-Linux.AppImage" class="download-button" id="linux-download">
+                    <a href="https://github.com/Ruthhilary/OpenLiveCaption" class="download-button" id="linux-download">
                         <span class="platform-icon">🐧</span>
-                        Linux
+                        Download for Linux
                     </a>
+                </div>
+                
+                <p style="margin: 20px 0; padding: 15px; background: #e3f2fd; border-radius: 10px; border-left: 5px solid #2196f3;">
+                    <strong>📥 How to Download:</strong><br>
+                    Click any button above → Click the green "Code" button → Download ZIP → Extract and run <code>START_OPENLIVECAPTION.bat</code>
+                </p>
+                
+                <div style="background: #f0f9ff; padding: 25px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #0ea5e9;">
+                    <h3 style="color: #0369a1; margin-bottom: 15px;">📦 Quick Start Guide</h3>
+                    <ol style="margin-left: 20px; color: #0c4a6e;">
+                        <li style="margin: 10px 0;"><strong>Click</strong> any download button above to go to GitHub</li>
+                        <li style="margin: 10px 0;"><strong>Click</strong> the green "Code" button</li>
+                        <li style="margin: 10px 0;"><strong>Select</strong> "Download ZIP"</li>
+                        <li style="margin: 10px 0;"><strong>Extract</strong> the ZIP file</li>
+                        <li style="margin: 10px 0;"><strong>Double-click</strong> <code style="background: #e0f2fe; padding: 3px 8px; border-radius: 5px;">START_OPENLIVECAPTION.bat</code></li>
+                        <li style="margin: 10px 0;"><strong>Enjoy</strong> live captions! 🎉</li>
+                    </ol>
                 </div>
                 
                 <div class="mobile-note">
                     <h3>📱 Mobile & Tablet Users</h3>
                     <p>OpenLiveCaption is a desktop application. For mobile devices, please download on your computer and use it there. We're working on mobile support!</p>
                 </div>
-                
-                <p style="margin-top: 30px; color: #666;">
-                    Or run from source: <code style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px;">python Main.py</code>
-                </p>
                 
                 <a href="https://github.com/Ruthhilary/OpenLiveCaption" class="github-link" style="display: inline-block; margin-top: 20px; color: #667eea; border-color: #667eea;">
                     View on GitHub →
@@ -403,12 +416,6 @@
             button.addEventListener('click', function(e) {
                 const platform = this.id.replace('-download', '');
                 console.log(`Download clicked: ${platform}`);
-                
-                // If GitHub releases don't exist yet, redirect to GitHub
-                if (this.href.includes('Ruthhilary')) {
-                    e.preventDefault();
-                    alert('Please update the download links with your GitHub username first!\n\nOr download from: https://github.com/Ruthhilary/OpenLiveCaption');
-                }
             });
         });
         
