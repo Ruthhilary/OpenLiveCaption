@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free, open-source live captions for everyone. Real-time speech-to-text in 47 languages. Works with Zoom, Teams, YouTube, and more.">
+    <meta name="keywords" content="live captions, speech to text, accessibility, subtitles, transcription, translation">
+    <title>OpenLiveCaption - Free Live Captions for Everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: clamp(2em, 5vw, 3em);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: clamp(1.2em, 3vw, 1.5em);
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: clamp(30px, 5vw, 60px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            font-size: clamp(1em, 2vw, 1.2em);
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-width: 200px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .download-button:active {
+            transform: translateY(-2px);
+        }
+        
+        .platform-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #667eea;
+            font-size: clamp(1.1em, 2vw, 1.3em);
+        }
+        
+        .feature p {
+            font-size: clamp(0.9em, 1.5vw, 1em);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 20px;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: clamp(2em, 5vw, 3em);
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: clamp(1em, 2vw, 1.2em);
+            color: #666;
+        }
+        
+        .quick-start {
+            background: #e3f2fd;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #2196f3;
+            margin: 40px 0;
+        }
+        
+        .quick-start h2 {
+            color: #1976d2;
+            margin-bottom: 20px;
+        }
+        
+        .quick-start ol {
+            margin-left: 20px;
+        }
+        
+        .quick-start li {
+            margin: 10px 0;
+            font-size: clamp(0.9em, 1.5vw, 1.1em);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 30px;
+            border: 2px solid white;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+        
+        .github-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .mobile-note {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+        }
+        
+        .mobile-note h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .mobile-note p {
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 15px;
+            }
+            
+            .main-content {
+                padding: 25px 15px;
+            }
+            
+            .download-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stat {
+                min-width: 100px;
+            }
+            
+            .quick-start {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎙️ OpenLiveCaption</h1>
+            <p class="tagline">Free, Open-Source Live Captions for Everyone</p>
+            <p>Real-time speech-to-text transcription that works with any application</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free & Open Source</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+            </div>
+            
+            <div class="download-section">
+                <h2>Download Now</h2>
+                <p style="margin: 20px 0; font-size: 1.1em;">Choose your platform:</p>
+                
+                <div class="download-buttons">
+                    <a href="https://github.com/YOUR_USERNAME/OpenLiveCaption/releases/latest/download/OpenLiveCaption-Windows.exe" class="download-button" id="windows-download">
+                        <span class="platform-icon">🪟</span>
+                        Windows
+                    </a>
+                    
+                    <a href="https://github.com/YOUR_USERNAME/OpenLiveCaption/releases/latest/download/OpenLiveCaption-macOS.dmg" class="download-button" id="macos-download">
+                        <span class="platform-icon">🍎</span>
+                        macOS
+                    </a>
+                    
+                    <a href="https://github.com/YOUR_USERNAME/OpenLiveCaption/releases/latest/download/OpenLiveCaption-Linux.AppImage" class="download-button" id="linux-download">
+                        <span class="platform-icon">🐧</span>
+                        Linux
+                    </a>
+                </div>
+                
+                <div class="mobile-note">
+                    <h3>📱 Mobile & Tablet Users</h3>
+                    <p>OpenLiveCaption is a desktop application. For mobile devices, please download on your computer and use it there. We're working on mobile support!</p>
+                </div>
+                
+                <p style="margin-top: 30px; color: #666;">
+                    Or run from source: <code style="background: #f0f0f0; padding: 5px 10px; border-radius: 5px;">python Main.py</code>
+                </p>
+                
+                <a href="https://github.com/YOUR_USERNAME/OpenLiveCaption" class="github-link" style="display: inline-block; margin-top: 20px; color: #667eea; border-color: #667eea;">
+                    View on GitHub →
+                </a>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h3>System-Wide Overlay</h3>
+                    <p>Captions appear on top of ALL applications - Zoom, Teams, YouTube, and more</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time</h3>
+                    <p>Powered by OpenAI Whisper for accurate speech-to-text with < 2 second latency</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable</h3>
+                    <p>Adjust font, colors, position, opacity, and display modes</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>All processing happens locally. No data sent to external servers</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>47 Languages</h3>
+                    <p>Transcribe and translate in 47 languages including Spanish, French, Chinese, Arabic</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">💾</div>
+                    <h3>Export Subtitles</h3>
+                    <p>Save captions as SRT or VTT files for post-processing</p>
+                </div>
+            </div>
+            
+            <div class="quick-start">
+                <h2>Quick Start Guide</h2>
+                <ol>
+                    <li><strong>Download</strong> the installer for your platform</li>
+                    <li><strong>Install</strong> OpenLiveCaption (takes 1 minute)</li>
+                    <li><strong>Launch</strong> the application</li>
+                    <li><strong>Select</strong> your audio source (microphone or system audio)</li>
+                    <li><strong>Click</strong> "Start Captions"</li>
+                    <li><strong>Enjoy</strong> real-time captions on any application!</li>
+                </ol>
+                <p style="margin-top: 20px;">
+                    <strong>First launch:</strong> The Whisper model will download automatically (1-2 minutes, one-time only)
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">
+                OpenLiveCaption is free and open-source software
+            </p>
+            <p>
+                Licensed under MIT License • Made with ❤️ for accessibility and inclusion
+            </p>
+            <a href="https://github.com/YOUR_USERNAME/OpenLiveCaption" class="github-link">
+                View on GitHub
+            </a>
+            <p style="margin-top: 30px; opacity: 0.8;">
+                Version 2.0.0 • Released February 2026
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Auto-detect platform and highlight appropriate download button
+        function detectPlatform() {
+            const platform = navigator.platform.toLowerCase();
+            const userAgent = navigator.userAgent.toLowerCase();
+            
+            if (platform.includes('win')) {
+                document.getElementById('windows-download').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                document.getElementById('windows-download').innerHTML = '<span class="platform-icon">🪟</span> Download for Windows (Recommended)';
+            } else if (platform.includes('mac')) {
+                document.getElementById('macos-download').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                document.getElementById('macos-download').innerHTML = '<span class="platform-icon">🍎</span> Download for macOS (Recommended)';
+            } else if (platform.includes('linux')) {
+                document.getElementById('linux-download').style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                document.getElementById('linux-download').innerHTML = '<span class="platform-icon">🐧</span> Download for Linux (Recommended)';
+            }
+            
+            // Show mobile warning if on mobile
+            if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+                const mobileNote = document.querySelector('.mobile-note');
+                mobileNote.style.display = 'block';
+                mobileNote.style.background = '#ffebee';
+                mobileNote.style.borderColor = '#f44336';
+                mobileNote.querySelector('h3').style.color = '#c62828';
+                mobileNote.querySelector('p').style.color = '#c62828';
+            }
+        }
+        
+        // Track download clicks
+        document.querySelectorAll('.download-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const platform = this.id.replace('-download', '');
+                console.log(`Download clicked: ${platform}`);
+                
+                // If GitHub releases don't exist yet, redirect to GitHub
+                if (this.href.includes('YOUR_USERNAME')) {
+                    e.preventDefault();
+                    alert('Please update the download links with your GitHub username first!\n\nOr download from: https://github.com/YOUR_USERNAME/OpenLiveCaption');
+                }
+            });
+        });
+        
+        // Run on page load
+        detectPlatform();
+    </script>
+</body>
+</html>

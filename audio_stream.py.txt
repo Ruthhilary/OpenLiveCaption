@@ -1,0 +1,14 @@
+import sounddevice as sd
+import numpy as np
+
+SAMPLE_RATE = 16000
+CHUNK_DURATION = 2  # seconds
+
+def record_audio_chunk():
+    audio = sd.rec(
+        int(SAMPLE_RATE * CHUNK_DURATION),
+        samplerate=SAMPLE_RATE,
+        channels=1
+    )
+    sd.wait()
+    return audio.flatten().astype(np.float32)

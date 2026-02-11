@@ -1,0 +1,21 @@
+# Core dependencies
+opencv-python
+sounddevice
+numpy
+openai-whisper
+torch
+transformers
+soundfile
+
+# GUI framework
+PyQt6>=6.4.0
+
+# Windows audio capture (WASAPI loopback)
+pyaudiowpatch>=0.2.12.4; sys_platform == 'win32'
+
+# Testing framework
+pytest>=7.4.0
+hypothesis>=6.82.0
+
+# Packaging
+pyinstaller>=5.13.0

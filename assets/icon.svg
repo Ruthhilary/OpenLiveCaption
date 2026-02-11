@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- OpenLiveCaption Application Icon -->
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#2196F3" stroke="#1976D2" stroke-width="8"/>
+  
+  <!-- Speech bubble shape -->
+  <path d="M 140 180 L 372 180 Q 392 180 392 200 L 392 300 Q 392 320 372 320 L 220 320 L 180 360 L 180 320 L 140 320 Q 120 320 120 300 L 120 200 Q 120 180 140 180 Z" 
+        fill="white" stroke="#1976D2" stroke-width="4"/>
+  
+  <!-- Caption lines inside speech bubble -->
+  <line x1="160" y1="220" x2="352" y2="220" stroke="#2196F3" stroke-width="8" stroke-linecap="round"/>
+  <line x1="160" y1="250" x2="320" y2="250" stroke="#2196F3" stroke-width="8" stroke-linecap="round"/>
+  <line x1="160" y1="280" x2="340" y2="280" stroke="#2196F3" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Microphone icon in bottom right -->
+  <g transform="translate(360, 360)">
+    <!-- Mic body -->
+    <rect x="-15" y="-40" width="30" height="50" rx="15" fill="#FFC107" stroke="#FF9800" stroke-width="3"/>
+    <!-- Mic stand -->
+    <line x1="0" y1="10" x2="0" y2="35" stroke="#FF9800" stroke-width="4" stroke-linecap="round"/>
+    <!-- Mic base -->
+    <line x1="-20" y1="35" x2="20" y2="35" stroke="#FF9800" stroke-width="4" stroke-linecap="round"/>
+    <!-- Sound waves -->
+    <path d="M -35 -10 Q -40 0 -35 10" stroke="#FF9800" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 35 -10 Q 40 0 35 10" stroke="#FF9800" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

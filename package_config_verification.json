@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "name": "Requirements",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "PyInstaller Spec",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "Build Script",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "Windows Installer",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "macOS DMG",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "Linux AppImage",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "Assets",
+      "exists": true,
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "icon.ico not found (Windows)",
+        "icon.icns not found (macOS)",
+        "icon.png not found (Linux)"
+      ],
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

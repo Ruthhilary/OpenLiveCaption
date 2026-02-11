@@ -1,0 +1,25 @@
+import cv2
+
+def draw_subtitles(frame, text):
+    height, width, _ = frame.shape
+
+    cv2.rectangle(
+        frame,
+        (0, height - 80),
+        (width, height),
+        (0, 0, 0),
+        -1
+    )
+
+    cv2.putText(
+        frame,
+        text,
+        (20, height - 30),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.8,
+        (255, 255, 255),
+        2,
+        cv2.LINE_AA
+    )
+
+    return frame

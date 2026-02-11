@@ -1,0 +1,24 @@
+import cv2
+from audio_stream import record_audio_chunk
+from transcriber import transcribe_audio
+from video_overlay import draw_subtitles
+
+cap = cv2.VideoCapture(0)
+subtitle_text = ""
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    audio = record_audio_chunk()
+    subtitle_text = transcribe_audio(audio)
+
+    frame = draw_subtitles(frame, subtitle_text)
+    cv2.imshow("OpenLiveCaption", frame)
+
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()

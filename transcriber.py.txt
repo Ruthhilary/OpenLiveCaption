@@ -1,0 +1,9 @@
+import whisper
+import numpy as np
+
+model = whisper.load_model("small")
+
+def transcribe_audio(audio):
+    audio = audio / np.max(np.abs(audio))
+    result = model.transcribe(audio, fp16=False)
+    return result["text"].strip()
