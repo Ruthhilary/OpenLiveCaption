@@ -2,458 +2,285 @@
 
 **OpenLiveCaption** is a free, open-source system-wide live captioning application that provides real-time speech-to-text transcription as an always-on-top overlay. Perfect for video conferencing, presentations, streaming, and accessibility.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
+🎬 OpenLiveCaption v2.1
 
-## Features
+**Real-time Speech-to-Text Captions for YouTube, Zoom, and More!**
 
-- **System-Wide Overlay**: Captions appear on top of all applications
-- **Real-Time Transcription**: Powered by OpenAI Whisper for accurate speech-to-text
-- **Multiple Audio Sources**: Capture from microphone or system audio (Zoom, Teams, YouTube, etc.)
-- **Customizable Display**: Configure font, colors, position, and opacity
-- **Translation Support**: Translate captions to 47 languages (Spanish, French, German, Chinese, Arabic, and more)
-- **Subtitle Export**: Save captions as SRT or VTT files
-- **Cross-Platform**: Works on Windows, macOS, and Linux
-- **Privacy-Focused**: All processing happens locally on your device
-- **Keyboard Shortcuts**: Quick access to start/stop and show/hide functions
-
-## Quick Start
-
-### Installation
-
-#### From Source
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/OpenLiveCaption.git
-   cd OpenLiveCaption
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the application**:
-   ```bash
-   python Main.py
-   ```
-
-#### From Package (Coming Soon)
-
-Download the installer for your platform:
-- **Windows**: `OpenLiveCaption-Setup.exe`
-- **macOS**: `OpenLiveCaption.dmg`
-- **Linux**: `OpenLiveCaption.AppImage`
-
-### First Run
-
-On first launch:
-1. The application will download the Whisper model (this may take a few minutes)
-2. A configuration file will be created in your system's config directory
-3. The control window and caption overlay will appear
-
-### Basic Usage
-
-1. **Select Audio Source**: Choose your microphone or system audio from the dropdown
-2. **Choose Model Size**: Select a Whisper model (tiny = fast, large = accurate)
-3. **Click "Start Captions"**: Begin transcription
-4. **Speak or play audio**: Captions will appear in the overlay window
-
-## System Requirements
-
-### Minimum Requirements
-- **OS**: Windows 10, macOS 11, or Ubuntu 20.04 (or equivalent)
-- **RAM**: 2GB (4GB recommended for larger models)
-- **Disk Space**: 500MB for application and models
-- **Processor**: Dual-core CPU (quad-core recommended)
-
-### Recommended Requirements
-- **RAM**: 8GB or more
-- **GPU**: NVIDIA GPU with CUDA support (optional, for faster transcription)
-- **Internet**: Required for first-time model download only
-
-## Platform-Specific Setup
-
-### Windows
-
-OpenLiveCaption works out of the box on Windows 10 and 11:
-- **System Audio Capture**: Uses WASAPI loopback (no additional software needed)
-- **Microphone**: Standard microphone input supported
-- **Compatibility**: Works with Zoom, Teams, Discord, YouTube, and more
-
-### macOS
-
-For system audio capture on macOS, you need a virtual audio device:
-
-1. **Install BlackHole** (recommended):
-   ```bash
-   brew install blackhole-2ch
-   ```
-   Or download from: https://existential.audio/blackhole/
-
-2. **Configure Audio Routing**:
-   - Open Audio MIDI Setup
-   - Create a Multi-Output Device
-   - Add both your speakers and BlackHole
-   - Set as system output
-
-See [docs/MACOS_SETUP.md](docs/MACOS_SETUP.md) for detailed instructions.
-
-### Linux
-
-OpenLiveCaption supports PulseAudio and PipeWire:
-
-1. **Check your audio system**:
-   ```bash
-   pactl info  # For PulseAudio
-   pw-cli info # For PipeWire
-   ```
-
-2. **Find monitor sources**:
-   ```bash
-   pactl list sources | grep monitor
-   ```
-
-3. **Select monitor source** in OpenLiveCaption to capture system audio
-
-See [docs/LINUX_SETUP.md](docs/LINUX_SETUP.md) for detailed instructions.
-
-## User Guide
-
-### Control Window
-
-The main control window provides:
-- **Start/Stop Captions**: Begin or end transcription
-- **Audio Source Selection**: Choose input device
-- **Model Size**: Select Whisper model (tiny, base, small, medium, large)
-- **Language**: Auto-detect or manual selection
-- **Settings**: Configure all application options
-- **Show/Hide Overlay**: Toggle caption display
-
-### Caption Overlay
-
-The overlay window displays captions on top of all applications:
-- **Always on Top**: Stays visible over fullscreen apps
-- **Click-Through**: Doesn't interfere with mouse clicks
-- **Customizable**: Adjust position, font, colors, and opacity
-- **Multi-Monitor**: Works across multiple displays
-
-### Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Shift+S` | Start/Stop captions |
-| `Ctrl+Shift+H` | Show/Hide overlay |
-
-*Shortcuts can be customized in Settings*
-
-### System Tray
-
-The application minimizes to the system tray:
-- **Double-click**: Show control window
-- **Right-click**: Access quick menu
-  - Start/Stop Captions
-  - Show/Hide Overlay
-  - Settings
-  - Exit
-
-### Settings
-
-Access settings by clicking the ⚙ Settings button:
-
-#### Audio Tab
-- **Device Selection**: Choose audio input device
-- **Sample Rate**: Audio sample rate (default: 16000 Hz)
-- **Chunk Duration**: Audio processing interval (default: 1.0 seconds)
-- **VAD Threshold**: Voice activity detection sensitivity
-
-#### Transcription Tab
-- **Model Size**: Whisper model selection
-  - `tiny`: Fastest, least accurate (~75MB)
-  - `base`: Fast, good accuracy (~150MB)
-  - `small`: Balanced (~500MB)
-  - `medium`: Accurate, slower (~1.5GB)
-  - `large`: Most accurate, slowest (~3GB)
-- **Device**: CPU or GPU processing
-- **Language**: Auto-detect or manual selection
-- **Translation**: Enable translation to target language
-
-#### Overlay Tab
-- **Position**: Top, Bottom, or Custom
-- **Font Family**: Choose display font
-- **Font Size**: Text size (default: 24)
-- **Text Color**: Caption text color
-- **Background Color**: Overlay background color
-- **Background Opacity**: Transparency level (0-100%)
-- **Max Lines**: Maximum lines displayed (default: 3)
-- **Display Mode**: Scroll or Replace
-- **Auto-Clear Timeout**: Clear captions after silence (seconds)
-
-#### Export Tab
-- **Enable Export**: Save captions to file
-- **Format**: SRT or VTT
-- **Output Path**: File save location
-
-#### Shortcuts Tab
-- **Start/Stop**: Customize start/stop shortcut
-- **Show/Hide**: Customize overlay toggle shortcut
-
-## Troubleshooting
-
-### No Audio Devices Found
-
-**Problem**: Audio device dropdown is empty
-
-**Solutions**:
-- Check that your microphone or audio device is connected
-- On macOS: Install BlackHole for system audio capture
-- On Linux: Ensure PulseAudio or PipeWire is running
-- Restart the application after connecting devices
-
-### Captions Not Appearing
-
-**Problem**: No captions display when speaking
-
-**Solutions**:
-- Verify the overlay is not hidden (press `Ctrl+Shift+H`)
-- Check audio level indicator shows activity
-- Increase microphone volume in system settings
-- Try speaking louder or closer to the microphone
-- Select a different audio device
-
-### Model Loading Fails
-
-**Problem**: Error loading Whisper model
-
-**Solutions**:
-- Ensure internet connection for first-time download
-- Check available disk space (models: 75MB - 3GB)
-- Try a smaller model size (tiny or base)
-- Clear model cache and re-download:
-  - Windows: `%USERPROFILE%\.cache\whisper`
-  - macOS/Linux: `~/.cache/whisper`
-
-### High CPU Usage
-
-**Problem**: Application uses too much CPU
-
-**Solutions**:
-- Use a smaller Whisper model (tiny or base)
-- Increase chunk duration in settings (reduces processing frequency)
-- Disable translation if not needed
-- Close other resource-intensive applications
-
-### Overlay Not Visible in Fullscreen
-
-**Problem**: Overlay disappears in fullscreen apps
-
-**Solutions**:
-- Try different overlay position (Top instead of Bottom)
-- On macOS: Grant accessibility permissions in System Preferences
-- On Linux: Check window manager settings for always-on-top support
-- Use windowed mode instead of fullscreen
-
-### Application Crashes
-
-**Problem**: Application closes unexpectedly
-
-**Solutions**:
-- Check console output for error messages
-- Verify all dependencies are installed: `pip install -r requirements.txt`
-- Delete config file and restart:
-  - Windows: `%APPDATA%\OpenLiveCaption\config.json`
-  - macOS: `~/Library/Application Support/OpenLiveCaption/config.json`
-  - Linux: `~/.config/OpenLiveCaption/config.json`
-- Update to the latest version
-- Report the issue on GitHub with error logs
-
-### Poor Transcription Accuracy
-
-**Problem**: Captions are inaccurate or garbled
-
-**Solutions**:
-- Use a larger Whisper model (medium or large)
-- Manually select the correct language instead of auto-detect
-- Improve audio quality (reduce background noise)
-- Speak more clearly and at a moderate pace
-- Check microphone positioning and volume
-
-### Translation Not Working
-
-**Problem**: Translation feature doesn't work
-
-**Solutions**:
-- Ensure internet connection for first-time model download
-- Check available disk space for translation models
-- Verify target language is supported
-- Disable and re-enable translation in settings
-- Check console for error messages
-
-### Keyboard Shortcuts Not Working
-
-**Problem**: Global shortcuts don't respond
-
-**Solutions**:
-- On Linux/Wayland: Global shortcuts may not be supported
-- Use the control window or system tray instead
-- Check if another application is using the same shortcut
-- Customize shortcuts in Settings to avoid conflicts
-- Ensure the application has necessary permissions
-
-## Advanced Usage
-
-### GPU Acceleration
-
-To use GPU acceleration for faster transcription:
-
-1. Install CUDA-enabled PyTorch:
-   ```bash
-   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-   ```
-
-2. In Settings > Transcription, select "cuda" as device
-
-3. Restart the application
-
-### Custom Model Path
-
-To use a custom Whisper model:
-
-1. Download the model to a local directory
-2. Edit the config file and set `model_path` to your model location
-3. Restart the application
-
-### Batch Processing
-
-To transcribe pre-recorded audio files:
-
-```python
-from src.transcription.transcription_engine import TranscriptionEngine
-import numpy as np
-
-engine = TranscriptionEngine(model_name="base")
-# Load your audio file as numpy array
-audio = np.load("audio.npy")
-result = engine.transcribe(audio)
-print(result.text)
-```
-
-### API Integration
-
-OpenLiveCaption can be integrated into other applications:
-
-```python
-from src.application import Application
-
-app = Application()
-app.start_captions()
-# Your code here
-app.stop_captions()
-```
-
-## Configuration File
-
-The configuration file is stored in JSON format:
-
-**Location**:
-- Windows: `%APPDATA%\OpenLiveCaption\config.json`
-- macOS: `~/Library/Application Support/OpenLiveCaption/config.json`
-- Linux: `~/.config/OpenLiveCaption/config.json`
-
-**Example**:
-```json
-{
-  "audio": {
-    "device_id": -1,
-    "sample_rate": 16000,
-    "chunk_duration": 1.0,
-    "vad_threshold": 0.01
-  },
-  "transcription": {
-    "model_name": "tiny",
-    "device": "cpu",
-    "language": null,
-    "enable_translation": false,
-    "target_language": null
-  },
-  "overlay": {
-    "position": "bottom",
-    "custom_x": 0,
-    "custom_y": 0,
-    "width": 0,
-    "height": 150,
-    "font_family": "Arial",
-    "font_size": 24,
-    "text_color": "#FFFFFF",
-    "background_color": "#000000",
-    "background_opacity": 0.7,
-    "max_lines": 3,
-    "scroll_mode": "replace",
-    "clear_timeout": 5.0
-  },
-  "export": {
-    "enabled": true,
-    "format": "srt",
-    "output_path": "subtitles.srt"
-  },
-  "shortcuts": {
-    "start_stop": "Ctrl+Shift+S",
-    "show_hide": "Ctrl+Shift+H"
-  }
-}
-```
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Development Setup
-
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/OpenLiveCaption.git`
-3. Create a branch: `git checkout -b feature/your-feature`
-4. Install dev dependencies: `pip install -r requirements.txt`
-5. Make your changes
-6. Run tests: `pytest`
-7. Submit a pull request
-
-## License
-
-OpenLiveCaption is licensed under the MIT License. See [LICENSE.txt](LICENSE.txt) for details.
-
-## Acknowledgments
-
-- **OpenAI Whisper**: Speech recognition model
-- **PyQt6**: GUI framework
-- **PyAudioWPatch**: Windows audio capture
-- **sounddevice**: Cross-platform audio I/O
-- **MarianMT**: Translation models
-
-## Support
-
-- **Documentation**: [docs/](docs/)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/OpenLiveCaption/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/OpenLiveCaption/discussions)
-
-## Roadmap
-
-- [ ] Additional translation languages
-- [ ] Cloud-based transcription options
-- [ ] Mobile companion app
-- [ ] Browser extension
-- [ ] Custom vocabulary support
-- [ ] Speaker diarization
-- [ ] Real-time collaboration features
-
-## Privacy Policy
-
-OpenLiveCaption processes all audio locally on your device. No audio data is sent to external servers unless you explicitly enable cloud-based features (not currently available). Configuration and subtitle files are stored locally on your device.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
+[![Version](https://img.shields.io/badge/version-2.1-blue.svg)](https://github.com/Ruthhilary/OpenLiveCaption/releases)
+[![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://github.com/Ruthhilary/OpenLiveCaption)
 
 ---
 
-**Made with ❤️ for accessibility and inclusion**
+## ✨ Features
+
+- 🎯 **Real-time Captions** - Instant speech-to-text transcription
+- 🔊 **System Audio Capture** - Capture audio from YouTube, Zoom, Discord, and any application
+- 🎤 **Microphone Support** - Transcribe your own speech
+- 🌍 **Multi-language Support** - Auto-detect or select from 90+ languages
+- 🔄 **Live Translation** - Translate captions to another language in real-time
+- 🎨 **Customizable Overlay** - Adjust position, size, colors, and fonts
+- 💾 **Export Subtitles** - Save captions as SRT files
+- 🚀 **Beginner-Friendly** - Simple interface with clear instructions
+- 🖥️ **Clean GUI** - Professional interface with no command prompt
+- ⚡ **Fast & Accurate** - Powered by OpenAI Whisper AI
+
+---
+
+## 🚀 Quick Start
+
+### 1. Download
+Download the latest release: [OpenLiveCaption v2.1](https://github.com/Ruthhilary/OpenLiveCaption/releases)
+
+### 2. Install Requirements
+- **Python 3.11+** - [Download here](https://www.python.org/downloads/)
+- **Visual C++ Redistributables** - [Download here](https://aka.ms/vs/17/release/vc_redist.x64.exe)
+
+### 3. Install Python Packages
+Open Command Prompt and run:
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip install openai-whisper PyQt6 sounddevice PyAudioWPatch numpy opencv-python
+```
+
+### 4. Start the Application
+Double-click: **START_OPENLIVE_CAPTION.bat**
+
+That's it! The application will start with a clean GUI (no command prompt).
+
+---
+
+## 📖 How to Use
+
+### For YouTube/Zoom (System Audio):
+1. **Start playing audio** (YouTube video, Zoom call, etc.)
+2. Open OpenLiveCaption
+3. Select: **🔊 Speakers [Loopback]** device
+4. Click **"▶ Start Captions"**
+5. Captions appear automatically!
+
+### For Microphone:
+1. Open OpenLiveCaption
+2. Select: **🎤 Microphone** device
+3. Click **"▶ Start Captions"**
+4. Speak into your microphone
+5. Your speech appears as captions!
+
+---
+
+## 🎯 Key Improvements in v2.1
+
+### ✅ Beginner-Friendly Interface
+- Clear audio device labels with icons (🔊 for system audio, 🎤 for microphones)
+- Visual separators showing which device is for what purpose
+- Recommended devices marked with ⭐
+- Helpful tooltips explaining each option
+
+### ✅ No Command Prompt Window
+- Clean professional GUI
+- Launches with pythonw (no black console window)
+- Simple one-click launcher
+
+### ✅ Improved Audio Capture
+- Automatic sample rate detection and conversion
+- Support for 48000 Hz, 44100 Hz, and 16000 Hz devices
+- Better error handling and reconnection
+- Works with USB audio devices and built-in audio
+
+### ✅ Enhanced Stability
+- PyTorch DLL loading fix included
+- Automatic error recovery
+- Device disconnection handling
+- Better memory management
+
+### ✅ Better User Experience
+- Splash screen on startup
+- System tray integration
+- Minimize to tray
+- Quick settings for common adjustments
+
+---
+
+## 🎨 Features in Detail
+
+### Audio Capture
+- **System Audio (Loopback)**: Capture audio from any application
+  - YouTube videos
+  - Zoom/Teams meetings
+  - Discord voice chat
+  - Spotify, Netflix, etc.
+- **Microphone**: Capture your own speech
+  - USB microphones
+  - Built-in laptop microphones
+  - Bluetooth headsets
+
+### Transcription
+- **AI-Powered**: Uses OpenAI Whisper for accurate transcription
+- **Multiple Models**: Choose speed vs accuracy
+  - `tiny` - Fastest (good for real-time)
+  - `base` - Balanced (recommended)
+  - `small` - More accurate
+  - `medium` - Very accurate
+  - `large` - Most accurate (slower)
+- **90+ Languages**: Auto-detect or manually select
+
+### Translation
+- **Real-time Translation**: Translate captions to another language
+- **90+ Target Languages**: Translate to any supported language
+- **Preserve Original**: Option to show both original and translated text
+
+### Customization
+- **Position**: Top, bottom, or custom position
+- **Appearance**: Font, size, colors, transparency
+- **Behavior**: Auto-hide, scroll mode, line count
+- **Export**: Save captions as SRT subtitle files
+
+---
+
+## 💻 System Requirements
+
+### Minimum:
+- **OS**: Windows 10/11
+- **CPU**: Intel Core i3 or equivalent
+- **RAM**: 4 GB
+- **Storage**: 2 GB free space
+- **Internet**: Required for first-time model download
+
+### Recommended:
+- **OS**: Windows 11
+- **CPU**: Intel Core i5 or better
+- **RAM**: 8 GB or more
+- **Storage**: 5 GB free space
+- **Internet**: Stable connection for best performance
+
+---
+
+## 🔧 Troubleshooting
+
+### Application Won't Start
+**Solution**: Restart your computer after installing Visual C++ Redistributables, then try again.
+
+### No Audio Devices Showing
+**Solution**: 
+1. Right-click speaker icon in taskbar
+2. Click "Sounds" → "Recording" tab
+3. Right-click empty space → "Show Disabled Devices"
+4. Enable "Stereo Mix" or loopback devices
+5. Restart OpenLiveCaption
+
+### "Invalid Sample Rate" Error
+**Solution**:
+1. Make sure audio is PLAYING before clicking "Start Captions"
+2. Try a different audio device from the dropdown
+3. Use microphone instead of loopback device
+4. Close other audio applications (Discord, OBS, etc.)
+
+### Captions Not Appearing
+**Solution**:
+1. Check that correct audio device is selected
+2. Make sure audio is actually playing
+3. Increase volume
+4. Try different accuracy level (tiny/base/small)
+
+### Slow Performance
+**Solution**:
+1. Use "tiny" or "base" model for faster performance
+2. Close other heavy applications
+3. Reduce caption overlay size
+4. Disable translation if not needed
+
+---
+
+## 📁 Project Structure
+
+```
+OpenLiveCaption-v2.1-FIXED/
+├── START_OPENLIVE_CAPTION.bat    # Main launcher (no console)
+├── Main.py                        # Application entry point
+├── fix_pytorch_and_run.py        # PyTorch DLL fix script
+├── requirements.txt               # Python dependencies
+├── src/                          # Source code
+│   ├── application.py            # Main application logic
+│   ├── audio/                    # Audio capture modules
+│   ├── transcription/            # Whisper transcription
+│   ├── translation/              # Translation engine
+│   ├── ui/                       # User interface
+│   ├── config/                   # Configuration management
+│   └── export/                   # Subtitle export
+├── assets/                       # Icons and resources
+└── docs/                         # Documentation
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### How to Contribute:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **OpenAI Whisper** - For the amazing speech recognition model
+- **PyQt6** - For the GUI framework
+- **PyAudioWPatch** - For WASAPI loopback support on Windows
+- All contributors and users who provided feedback
+
+---
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/Ruthhilary/OpenLiveCaption/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Ruthhilary/OpenLiveCaption/discussions)
+- **Email**: [Your Email]
+
+---
+
+## 🌟 Star History
+
+If you find this project useful, please consider giving it a star! ⭐
+
+---
+
+## 📊 Version History
+
+### v2.1 (Latest)
+- ✅ Beginner-friendly audio device labels
+- ✅ No command prompt window
+- ✅ Improved audio capture with automatic sample rate conversion
+- ✅ PyTorch DLL loading fix
+- ✅ Better error handling and recovery
+- ✅ Enhanced user interface
+- ✅ System tray integration
+
+### v2.0
+- Initial release with basic functionality
+- Real-time transcription
+- Multi-language support
+- Basic UI
+
+---
+
+## 🎉 Thank You!
+
+Thank you for using OpenLiveCaption! We hope it makes your content more accessible.
+
+**Made with ❤️ for accessibility**
+
+---
+
+**[⬆ Back to Top](#-openlive-caption-v21)**
